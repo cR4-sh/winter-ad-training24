@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>MinionGame</title>
+  <link rel="icon" type="image/x-icon" href="static/img/favicon.ico">
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:300,400'>
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lato:300,400,900'>
+  <link rel="stylesheet" href="static/css/choose_game.css">
+</head>
+<body>
+{% include 'navigation.html' %}
+<!-- partial:index.partial.html -->
+<h1>Choose any game</h1>
+<div class="pricing-table">
+  <div class="pricing-item">
+    <header class="pricing-header">
+      <h3>Snake</h3>
+      <h5>Hungry for apples?</h5>
+    </header>
+    <!-- /.pricing-header -->
+    <div class="pricing-price">
+      <img src="/static/img/snake.png">
+    </div>
+    <!-- /.pricing-price -->
+    <div class="pricing-features">
+      <p>Become BIG!</p>
+    </div>
+    <!-- /.pricing-features -->
+    <footer class="pricing-footer">
+      <a href="/game/1" class="btn-pricing">Play</a>
+    </footer>
+    <!-- /.pricing-footer -->
+  </div>
+  <!-- /.pricing-item -->
+
+  <div class="pricing-item featured">
+    <header class="pricing-header">
+      <h3>Tetris</h3>
+      <h5>Make bricks in the wall</h5>
+    </header>
+    <!-- /.pricing-header -->
+    <div class="pricing-price">
+      <img src="/static/img/tetris.png">
+    </div>
+    <!-- /.pricing-price -->
+    <div class="pricing-features">
+      <p>All in a row!</p>
+    </div>
+    <!-- /.pricing-features -->
+    <footer class="pricing-footer">
+      <a href="/game/2" class="btn-pricing">Play</a>
+    </footer>
+    <!-- /.pricing-footer -->
+  </div>
+  <!-- /.pricing-item -->
+
+  <div class="pricing-item">
+    <header class="pricing-header">
+      <h3>Arkanoid</h3>
+      <h5>Ball and the platform</h5>
+    </header>
+    <!-- /.pricing-header -->
+    <div class="pricing-price">
+      <img src="/static/img/arkanoid.png">
+    </div>
+    <!-- /.pricing-price -->
+    <div class="pricing-features">
+      <p>Destroy them all!</p>
+    </div>
+    <!-- /.pricing-features -->
+    <footer class="pricing-footer">
+      <a href="/game/3" class="btn-pricing">Play</a>
+    </footer>
+    <!-- /.pricing-footer -->
+  </div>
+  <!-- /.pricing-item -->
+</div>
+</body>
+</html>

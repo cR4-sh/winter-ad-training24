@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>MinionGames</title>
+  <link rel="icon" type="image/x-icon" href="static/img/favicon.ico">
+  <link href="/static/css/news.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+  {% include 'navigation.html' %}
+    <header>
+      <h1>MinionGame News Updates</h1>
+    </header>
+    <main>
+      <!-- This article block is a single blog post! Copy and paste to add additional posts -->
+      {% for n in news %}
+        <article>
+          <h3>{{n[0]}}</h3>
+          <hr/>
+          <p>{{n[1]}}</p>
+        </article>
+      {% endfor %}
+    </main>
+    <footer>
+    </footer>
+  </body>
+</html>

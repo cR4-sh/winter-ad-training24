@@ -1,0 +1,11 @@
+version: '3.4'
+services:
+  miniongames:
+    build: ./app
+    ports:
+      - '8785:5000'
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 500M

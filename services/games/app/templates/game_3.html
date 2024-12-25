@@ -1,0 +1,189 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MinionGame</title>
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <style>
+        html, body {
+        height: 100%;
+        margin: 0;
+        }
+
+        .arkanoid {
+        background: black;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        }
+    </style>
+    </head>
+<body>
+{% include 'navigation.html' %}
+<div class="arkanoid">
+<canvas width="400" height="500" id="game"></canvas>
+<script>
+    const canvas = document.getElementById('game');
+    const context = canvas.getContext('2d');
+    let startTime = new Date();
+    const minionImg = new Image();
+    minionImg.src = '/static/img/minion.jpg';
+    const bananaImg = new Image();
+    bananaImg.src = '/static/img/banana.webp';
+    const paddleImg = new Image();
+    paddleImg.src = '/static/img/platform.png';
+
+    const level1 = [
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      ['B','B','B','B','B','B','B','B','B','B','B','B','B','B'],
+      ['B','B','B','B','B','B','B','B','B','B','B','B','B','B'],
+      ['B','B','B','B','B','B','B','B','B','B','B','B','B','B'],
+      ['B','B','B','B','B','B','B','B','B','B','B','B','B','B']
+    ];
+
+    let score = 0;
+    const brickGap = 2;
+    const brickWidth = 40;
+    const brickHeight = 20;
+    const wallSize = 12;
+    const bricks = [];
+
+    for (let row = 0; row < level1.length; row++) {
+      for (let col = 0; col < level1[row].length; col++) {
+        const colorCode = level1[row][col];
+
+        bricks.push({
+          x: wallSize + (brickWidth + brickGap) * col,
+          y: wallSize + (brickHeight + brickGap) * row,
+          type: colorCode,
+          width: brickWidth,
+          height: brickHeight
+        });
+      }
+    }
+
+    const paddle = {
+      x: canvas.width / 2 - brickWidth * 2,
+      y: canvas.height - 30,
+      width: 100,
+      height: 20,
+      dx: 0
+    };
+
+    const ball = {
+      x: canvas.width / 2,
+      y: canvas.height / 2,
+      width: 20,
+      height: 20,
+      speed: 3,
+      dx: 0,
+      dy: 0
+    };
+
+    function collides(obj1, obj2) {
+      return obj1.x < obj2.x + obj2.width &&
+            obj1.x + obj1.width > obj2.x &&
+            obj1.y < obj2.y + obj2.height &&
+            obj1.y + obj1.height > obj2.y;
+    }
+
+    function loop() {
+      requestAnimationFrame(loop);
+      context.clearRect(0, 0, canvas.width, canvas.height);
+
+      paddle.x += paddle.dx;
+      if (paddle.x < wallSize) paddle.x = wallSize;
+      if (paddle.x + paddle.width > canvas.width - wallSize) paddle.x = canvas.width - wallSize - paddle.width;
+
+      ball.x += ball.dx;
+      ball.y += ball.dy;
+
+      if (ball.x < wallSize || ball.x + ball.width > canvas.width - wallSize) ball.dx *= -1;
+      if (ball.y < wallSize) ball.dy *= -1;
+
+      if (ball.y > canvas.height) {
+        var passedTime = Math.floor(((new Date()) - startTime) / 1000);
+        fetch('/score', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ game_id: 3, score: score, time: passedTime })
+        }).then(response => {
+          if (response.ok) {
+            alert(`Score: ${score}`);
+            window.location = '/scoreboard/3';
+          } else {
+            alert('Error updating score');
+          }
+        });
+      }
+
+      if (collides(ball, paddle)) {
+        ball.dy *= -1;
+        ball.y = paddle.y - ball.height;
+      }
+
+      for (let i = 0; i < bricks.length; i++) {
+        const brick = bricks[i];
+
+        if (collides(ball, brick)) {
+          score++;
+          bricks.splice(i, 1);
+
+          if (ball.y + ball.height - ball.speed <= brick.y || ball.y >= brick.y + brick.height - ball.speed) {
+            ball.dy *= -1;
+          } else {
+            ball.dx *= -1;
+          }
+
+          break;
+        }
+      }
+
+      context.fillStyle = 'lightblue';
+      context.fillRect(0, 0, canvas.width, wallSize);
+      context.fillRect(0, 0, wallSize, canvas.height);
+      context.fillRect(canvas.width - wallSize, 0, wallSize, canvas.height);
+
+      context.drawImage(minionImg, ball.x, ball.y, ball.width, ball.height);
+
+      bricks.forEach(function(brick) {
+        context.drawImage(bananaImg, brick.x, brick.y, brick.width, brick.height);
+      });
+
+      context.drawImage(paddleImg, paddle.x, paddle.y, paddle.width, paddle.height);
+
+      context.fillStyle = 'black';
+      context.font = '20px Arial';
+      context.fillText('Score: ' + score, 20, 30);
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.which === 37) paddle.dx = -5;
+      if (e.which === 39) paddle.dx = 5;
+      if (ball.dx === 0 && ball.dy === 0 && e.which === 32) {
+        ball.dx = ball.speed;
+        ball.dy = -ball.speed;
+      }
+    });
+
+    document.addEventListener('keyup', function(e) {
+      if (e.which === 37 || e.which === 39) paddle.dx = 0;
+    });
+
+    minionImg.onload = function() {
+      requestAnimationFrame(loop);
+      ball.dx = ball.speed;
+      ball.dy = -ball.speed;
+    };
+</script>
+
+</div>
+</body>
+</html>

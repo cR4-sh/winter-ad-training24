@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>MinionGames</title>
+  <link rel="icon" type="image/x-icon" href="static/img/favicon.ico">
+    <link href="/static/css/scoreboard.css" rel="stylesheet">
+</head>
+<body>
+{% include 'navigation.html' %}
+<!-- partial:index.partial.html -->
+<div class="wrapper">
+    <table>
+        <caption>High Scores <br>{{["Snake", "Tetris", "Arkanoid"][game_id - 1]}}</caption>
+        <tr>
+            <th>Username</th>
+            <th>Score</th>
+        </tr>
+        {% for s in score %}
+        <tr>
+            <td>{{s[0]}}</td>
+            <td>{{s[1]}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<!-- partial -->
+
+</body>
+</html>
