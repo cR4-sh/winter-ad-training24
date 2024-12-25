@@ -1,0 +1,8 @@
+services:
+  minions:
+    build: .
+    ports:
+      - "7771:7771"
+    volumes:
+      - ./minion_families:/app/minion_families
+      - ./minion_users:/app/minion_users
