@@ -16,7 +16,7 @@ TODO: Add scoreboard!
 
 | Service | Language | Checker | Sploits | Authors |
 |---------|----------|---------|---------|---------|
-| **[games](services/games/)** | Python | [Checker](checkers/games/) | [Sploits](sploits/games/) | [@S4ar](https://t.me/XxX_S4ar_XxX) |
+| **[games](services/games/)** | Python | [Checker](checkers/games/) | [Sploits](sploits/games/) | [BinaryBears](https://gitlab.com/mctf/mctf2023/student-finals/service/-/tree/main/klassika) |
 | **[minions](services/minions/)** | C | [Checker](checkers/minions/) | [Sploits](sploits/minions/) | [@FrakenboK](https://t.me/FrakenboK) |
    
 ## Infrastructure
