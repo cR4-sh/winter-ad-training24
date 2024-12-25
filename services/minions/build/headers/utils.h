@@ -15,3 +15,5 @@ void printMinion(struct Minion* minion);
 void printFamily(struct Family* family);
 
 bool isMinionExistsInFamily(struct Family* family, char *minionName);
+
+void gruAdmin();

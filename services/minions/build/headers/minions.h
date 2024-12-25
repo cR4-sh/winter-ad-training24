@@ -1,5 +1,5 @@
-#define SMALL_DEFAULT_STRLEN 50
-#define BIG_DEFAULT_STRLEN 100
+#define SMALL_DEFAULT_STRLEN 64
+#define BIG_DEFAULT_STRLEN 128
 
 #define MINIONS_FOLDER "./minion_users/"
 #define FAMILIES_FOLDER "./minion_families/"

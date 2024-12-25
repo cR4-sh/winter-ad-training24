@@ -365,34 +365,7 @@ void gruDoor() {
         return;
     }
     
-    char name[SMALL_DEFAULT_STRLEN];
-    printf("\n [GRUDOOR] Enter family name to get info: ");
-    if (fgets(name, SMALL_DEFAULT_STRLEN, stdin) == NULL) {
-        puts(" [ERROR] Bad Input!");
-        return;
-    }
-
-    name[strcspn(name, "\n")] = 0;
-    if (!strlen(name)) {
-        puts(" [ERROR] Invalid family name!");
-        return;
-    }
-    
-    if (!checkFamilyExists(name)) {
-        puts(" [ERROR] No such family!");
-        return;
-    }
-
-    struct Family* family = getFamilyFromFile(name);
-    if (family == NULL) {
-        puts(" [ERROR] Failed to get family!");
-        return;
-    }
-
-    printf("\n [GRUDOOR] Here is a family <%s>:\n", family->name);
-    printFamily(family);
-
-    free(family);
+    gruAdmin();
 }
 
 void logout() {
