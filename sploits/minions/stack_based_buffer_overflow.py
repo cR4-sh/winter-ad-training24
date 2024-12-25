@@ -88,7 +88,7 @@ for data in attack_data:
     register(io, rnd_username, rnd_password, rnd_secret)
     login(io, rnd_username, rnd_password)
 
-    create_family(io, rnd_username, rnd_password)
+    create_family(io, random_chars(), random_chars())
     get_minion_info(io, payload)
 
     exploit(io, data["family_name"])
