@@ -1,12 +1,15 @@
 #!/usr/bin/env -S python3
-
-import minions_lib
 import random
 import sys
 import json
 
+if True:
+    saved_args = sys.argv.copy()
+
 from checklib import * 
 from pwn import PwnlibException
+
+import minions_lib
 
 ALPH = [chr(i) for i in range(65, 65 + 26)] + [chr(i) for i in range(97, 97 + 26)]
 
@@ -78,7 +81,6 @@ class Checker(BaseChecker):
                          'Failed to get username from family member info', status=Status.MUMBLE)
         self.assert_in(secret1, family_member_info,
                          'Failed to get secret from family member info', status=Status.MUMBLE)
-        self.lib.exit()
 
         self.cquit(Status.OK)
         
@@ -136,11 +138,12 @@ class Checker(BaseChecker):
         try:
             super(Checker, self).action(action, *args, **kwargs)
         except (PwnlibException, EOFError):
-            self.cquit(Status.DOWN, "Connection error", "Got pwntools connect error")
+            self.cquit(Status.DOWN, "Connection error", "Got pwntools connection error")
 
 if __name__ == '__main__':
-    c = Checker(sys.argv[2])
+    c = Checker(saved_args[2])
+
     try:
-        c.action(sys.argv[1], *sys.argv[3:])
-    except c.get_check_finished_exception():
+        c.action(saved_args[1], *saved_args[3:])
+    except c.get_check_finished_exception() as e:
         cquit(Status(c.status), c.public, c.private)

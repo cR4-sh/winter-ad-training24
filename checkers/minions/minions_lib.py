@@ -1,4 +1,4 @@
-from checklib import * 
+from checklib import BaseChecker, Status
 from pwn import context, remote
 
 context.timeout = 10
@@ -117,6 +117,3 @@ class MinionLib:
         self.c.assert_in('Logged out!', response,
                          'Failed to logout', status=status)
         
-    def exit(self, status: Status = Status.MUMBLE):
-        self.r.sendline(EXIT)
-        response: str = self.r.recvuntil(b'See you later!').decode()
