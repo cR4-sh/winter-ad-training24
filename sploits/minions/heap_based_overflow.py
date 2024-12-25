@@ -70,3 +70,5 @@ for data in attack_data:
 
     get_flag(io)
 
+    logout(io)
+
