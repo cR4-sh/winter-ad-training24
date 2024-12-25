@@ -23,3 +23,4 @@ TODO: Add scoreboard!
 
 - DevOps: [@cotsom](https://t.me/cotsom) и [@S4ar](https://t.me/XxX_S4ar_XxX)
 - Checksystem: [ForcAD](https://github.com/pomo-mondreganto/ForcAD)
+- HR: [@NikitaBazilews](https://t.me/NikitaBazilews)
