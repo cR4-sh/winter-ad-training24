@@ -32,3 +32,4 @@ unicorn==2.1.1
 unix-ar==0.2.1
 urllib3==2.3.0
 zstandard==0.23.0
+beautifulsoup4
