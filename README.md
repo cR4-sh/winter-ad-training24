@@ -6,8 +6,6 @@
 
 ## Results
 
-TODO: Add scoreboard!
-
 ![Top](scoreboard/top.png)
 
 [Full scoreboard](scoreboard/full.png)
